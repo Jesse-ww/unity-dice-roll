@@ -21,8 +21,18 @@ public class DiceSpawner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject dice = Instantiate(DicePrefab, diceParent.transform.position, Quaternion.identity);
+            GameObject dice = Instantiate(DicePrefab, DiceSpawn.transform.position, Quaternion.identity);
+            dice.transform.SetParent(diceParent.transform);
             dice.GetComponent<DiceRoller>().Roll(DiceSpawn.position);
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            int childCount = diceParent.transform.childCount;
+            Debug.Log(childCount);
+            for (int i = 0; i < childCount; i++)
+            {
+                diceParent.transform.GetChild(i).GetComponent<DiceRoller>().DestroySelf();
+            }
         }
     }
 }
