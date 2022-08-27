@@ -21,9 +21,4 @@ public class DiceRoller : MonoBehaviour
         body.angularVelocity = Vector3.one * angVel;
         body.velocity = new Vector3(0f, 1f, launchVel);
     }
-
-    public void DestroySelf()
-    {
-        Destroy(gameObject);
-    }
 }

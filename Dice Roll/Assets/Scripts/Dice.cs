@@ -16,7 +16,7 @@ public class Dice : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!atRest && body.velocity.magnitude < 0.1f && body.angularVelocity.magnitude > 0.1f)
+        if (!atRest && body.velocity.magnitude < 0.05f && body.angularVelocity.magnitude < 0.05f)
         {
             atRest = true;
             if (Physics.Raycast(body.position, Vector3.up, out RaycastHit hit, 1f, diceMask))
@@ -27,7 +27,7 @@ public class Dice : MonoBehaviour
                 }
             }
         }
-        else if (atRest)
+        else if (atRest && body.velocity.magnitude > 0.1f && body.angularVelocity.magnitude > 0.1f)
         {
             atRest = false;
         }
@@ -35,6 +35,11 @@ public class Dice : MonoBehaviour
 
     public int GetValue()
     {
-        return value > 0 ? value : 0;
+        return value > 0 && atRest ? value : 0;
+    }
+
+    public void DestroySelf ()
+    {
+        Destroy(gameObject);
     }
 }
